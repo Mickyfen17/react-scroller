@@ -49,8 +49,9 @@ class ContentWrapper extends Component {
     this.ticking = false;
   };
 
-  handleClick = scrollToId => {
-    document.getElementById(scrollToId).scrollIntoView({
+  handleClick = id => {
+    // access saved content refs to enable scroll to
+    this[`${id}Content`].scrollIntoView({
       block: 'start',
       inline: 'nearest',
       behavior: 'smooth',
