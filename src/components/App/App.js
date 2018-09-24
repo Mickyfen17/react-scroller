@@ -1,23 +1,24 @@
-import React, { Component, Fragment } from 'react';
-import webpackSvg from 'images/webpack.svg';
-import reactLogo from 'images/react-logo.png';
+import React, { Component } from 'react';
+import ContentWrapper from '../ContentWrapper/ContentWrapper';
 import './App.scss';
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
-        <img
-          src={reactLogo}
-          style={{ height: 50, width: 50 }}
-          alt="react logo"
-        />
-        <img
-          src={webpackSvg}
-          style={{ height: 50, width: 150 }}
-          alt="webpack logo"
-        />
-      </Fragment>
+      <ContentWrapper>
+        <section id="one" style={{ height: 300, background: '#7180B9' }}>
+          <h1>One</h1>
+        </section>
+        <section id="two" style={{ height: 300, background: '#3423A6' }}>
+          <h1>Two</h1>
+        </section>
+        <section id="three" style={{ height: 300, background: '#2E1760' }}>
+          <h1>Three</h1>
+        </section>
+        <section id="four" style={{ height: 300, background: '#171738' }}>
+          <h1>Four</h1>
+        </section>
+      </ContentWrapper>
     );
   }
 }
