@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import smoothscroll from 'smoothscroll-polyfill';
 import ScrollLinks from '../ScrollLinks/ScrollLinks';
 import ScrollContent from '../ScrollContent/ScrollContent';
 
@@ -9,6 +10,8 @@ class ContentWrapper extends Component {
       activeButton: 'one',
     };
 
+    // init smoothscroll polyfill for browsers like safari & edge
+    smoothscroll.polyfill();
     this.scrollContent = React.createRef();
     this.renderedContent = [];
   }
@@ -143,7 +146,7 @@ class ContentWrapper extends Component {
                 ...child.props.style,
                 ...(i === children.length - 1 && {
                   // alter height of final content to be full height of screen
-                  height: window.innerHeight - 50,
+                  height: window.innerHeight,
                 }),
               },
               ref: this.setRef,
