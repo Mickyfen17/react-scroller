@@ -1,12 +1,14 @@
 import React from 'react';
 
-const ScrollLinks = ({ children }) => (
+const ScrollLinks = ({ children, scrollStyle }) => (
   <aside
     style={{
-      display: 'flex',
-      flex: 1,
-      flexDirection: 'column',
-      alignItems: 'center',
+      ...{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+      },
+      ...scrollStyle,
     }}
   >
     {children}

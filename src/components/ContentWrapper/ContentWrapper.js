@@ -38,10 +38,12 @@ class ContentWrapper extends Component {
     const { activeButton } = this.state;
 
     this.renderedContent.forEach(node => {
+      const pxFromTop = node.offsetTop;
+      const contentHeight = node.clientHeight;
       if (
         activeButton !== node.id &&
-        (this.lastScrollPosition >= node.offsetTop &&
-          this.lastScrollPosition < node.offsetTop + node.clientHeight)
+        (this.lastScrollPosition >= pxFromTop &&
+          this.lastScrollPosition < pxFromTop + contentHeight)
       ) {
         this.setState(prevState => ({ activeButton: node.id }));
       }
@@ -66,18 +68,59 @@ class ContentWrapper extends Component {
 
   render() {
     const { activeButton } = this.state;
-    const { children } = this.props;
+    const { children, position } = this.props;
+    const appliedStyle = {
+      ...(position === 'left' && {
+        scroll: {
+          flex: 1,
+        },
+        content: { flex: 2 },
+        wrapper: {
+          flexDirection: 'row',
+        },
+      }),
+      ...(position === 'right' && {
+        scroll: {
+          flex: 1,
+        },
+        content: { flex: 2 },
+        wrapper: {
+          flexDirection: 'row-reverse',
+        },
+      }),
+      ...(position === 'top' && {
+        scroll: {
+          flexDirection: 'row',
+          minHeight: 50,
+        },
+        wrapper: {
+          flexDirection: 'column',
+        },
+      }),
+      ...(position === 'bottom' && {
+        scroll: {
+          flexDirection: 'row',
+          minHeight: 50,
+        },
+        wrapper: {
+          flexDirection: 'column-reverse',
+        },
+      }),
+    };
 
     return (
       <section
         style={{
-          height: '100%',
-          width: '100%',
-          background: '#DFF3E4',
-          display: 'flex',
+          ...{
+            height: '100%',
+            width: '100%',
+            background: '#DFF3E4',
+            display: 'flex',
+          },
+          ...appliedStyle.wrapper,
         }}
       >
-        <ScrollLinks>
+        <ScrollLinks scrollStyle={appliedStyle.scroll}>
           {React.Children.map(children, child => {
             return React.createElement(
               'button',
@@ -90,14 +133,17 @@ class ContentWrapper extends Component {
             );
           })}
         </ScrollLinks>
-        <ScrollContent ref={this.scrollContent}>
+        <ScrollContent
+          ref={this.scrollContent}
+          contentStyle={appliedStyle.content}
+        >
           {React.Children.map(children, (child, i) => {
             return React.cloneElement(child, {
               style: {
                 ...child.props.style,
                 ...(i === children.length - 1 && {
                   // alter height of final content to be full height of screen
-                  height: window.innerHeight,
+                  height: window.innerHeight - 50,
                 }),
               },
               ref: this.setRef,

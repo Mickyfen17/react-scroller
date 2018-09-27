@@ -5,7 +5,7 @@ import './App.scss';
 class App extends Component {
   render() {
     return (
-      <ContentWrapper>
+      <ContentWrapper position="right">
         <section id="one" style={{ height: 300, background: '#7180B9' }}>
           <h1>One</h1>
         </section>

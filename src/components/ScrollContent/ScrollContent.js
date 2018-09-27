@@ -1,8 +1,14 @@
 import React from 'react';
 
-const ScrollContent = React.forwardRef(({ children }, ref) => {
+const ScrollContent = React.forwardRef(({ children, contentStyle }, ref) => {
   return (
-    <aside ref={ref} style={{ flex: 2, overflowY: 'scroll', color: '#FFF' }}>
+    <aside
+      ref={ref}
+      style={{
+        ...{ overflowY: 'scroll', color: '#FFF' },
+        ...contentStyle,
+      }}
+    >
       {children}
     </aside>
   );
