@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
+import ButtonLink from '../ButtonLink/ButtonLink';
 import ScrollLinks from '../ScrollLinks/ScrollLinks';
 import ScrollContent from '../ScrollContent/ScrollContent';
 
@@ -71,7 +72,15 @@ class ContentWrapper extends Component {
 
   render() {
     const { activeButton } = this.state;
-    const { children, position } = this.props;
+    const {
+      children,
+      position,
+      sideBarStyle,
+      contentStyle,
+      buttonStyle,
+      buttonColor,
+      buttonHoverColor,
+    } = this.props;
     const appliedStyle = {
       ...(position === 'left' && {
         scroll: {
@@ -117,28 +126,30 @@ class ContentWrapper extends Component {
           ...{
             height: '100%',
             width: '100%',
-            background: '#DFF3E4',
+            background: '#FFFCF7',
             display: 'flex',
           },
           ...appliedStyle.wrapper,
         }}
       >
-        <ScrollLinks scrollStyle={appliedStyle.scroll}>
-          {React.Children.map(children, child => {
-            return React.createElement(
-              'button',
-              {
-                onClick: () => this.handleClick(child.props.id),
-                type: 'button',
-                className: child.props.id === activeButton ? 'active' : '',
-              },
-              child.props.name || child.props.id
-            );
-          })}
+        <ScrollLinks scrollStyle={{ ...appliedStyle.scroll, ...sideBarStyle }}>
+          {React.Children.map(children, child => (
+            <ButtonLink
+              className={child.props.id === activeButton ? 'active' : ''}
+              active={child.props.id === activeButton}
+              aria-label={child.props.id}
+              onClick={() => this.handleClick(child.props.id)}
+              buttonStyle={{ ...appliedStyle.buttons, ...buttonStyle }}
+              buttonColor={buttonColor}
+              buttonHoverColor={buttonHoverColor}
+            >
+              {child.props.id}
+            </ButtonLink>
+          ))}
         </ScrollLinks>
         <ScrollContent
           ref={this.scrollContent}
-          contentStyle={appliedStyle.content}
+          contentStyle={{ ...appliedStyle.content, ...contentStyle }}
         >
           {React.Children.map(children, (child, i) => {
             return React.cloneElement(child, {
