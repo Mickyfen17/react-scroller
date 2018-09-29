@@ -5,7 +5,7 @@ const ScrollContent = React.forwardRef(({ children, contentStyle }, ref) => {
     <aside
       ref={ref}
       style={{
-        ...{ overflowY: 'scroll', color: '#FFF' },
+        ...{ overflowY: 'scroll' },
         ...contentStyle,
       }}
     >

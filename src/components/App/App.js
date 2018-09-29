@@ -5,7 +5,14 @@ import './App.scss';
 class App extends Component {
   render() {
     return (
-      <ContentWrapper position="right">
+      <ContentWrapper
+        position="right"
+        sideBarStyle={{ maxWidth: 200 }}
+        contentStyle={{}}
+        buttonStyle={{}}
+        buttonColor="#a1b5d8"
+        buttonHoverColor="#738290"
+      >
         <section id="one" style={{ height: 300, background: '#7180B9' }}>
           <h1>One</h1>
         </section>
