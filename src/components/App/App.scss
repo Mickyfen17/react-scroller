@@ -1,20 +1,4 @@
 #app {
   display: flex;
   height: 100vh;
-
-  button {
-    width: 100px;
-    padding: 5px;
-    margin: 5px 0;
-    color: #171738;
-    background: transparent;
-    border: 1px solid #171738;
-    border-radius: 5px;
-    cursor: pointer;
-
-    &.active {
-      color: #fff;
-      background: #171738;
-    }
-  }
 }
